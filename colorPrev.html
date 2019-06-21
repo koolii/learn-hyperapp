@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="jp">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Color Palette</title>
+
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+    <script src="https://unpkg.com/hyperapp"></script>
+
+    <script type="text/babel" data-presets="react">
+      const { h, app } = hyperapp;
+      // @jsx h
+      const state = {
+        red: 0,
+        green: 100,
+        blue: 255
+      };
+      const actions = {
+        setRed: value => state => ({ red: value }),
+        setGreen: value => state => ({ green: value }),
+        setBlue: value => state => ({ blue: value })
+      };
+
+      const view = (state, actions) =>
+        h("div", { className: "colorPalette" }, [
+          h("div", {
+            className: "colorPrev",
+            style: {
+              backgroundColor: `rgb(${state.red}, ${state.green}, ${
+                state.blue
+              })`
+            }
+          }),
+          h("ul", { className: "colorNumbers" }, [
+            h("li", {}, "red: ", [
+              h("input", {
+                type: "number",
+                value: state.red,
+                onchange: e => actions.setRed(e.target.value)
+              })
+            ]),
+            h("li", {}, "green: ", [
+              h("input", {
+                type: "number",
+                value: state.green,
+                onchange: e => actions.setGreen(e.target.value)
+              })
+            ]),
+            h("li", {}, "blue: ", [
+              h("input", {
+                type: "number",
+                value: state.blue,
+                onchange: e => actions.setBlue(e.target.value)
+              })
+            ])
+          ])
+        ]);
+
+      app(state, actions, view, document.body);
+    </script>
+    <style>
+      .colorPalette {
+        display: flex;
+        width: 400px;
+        margin: 120px auto;
+      }
+
+      .colorPrev {
+        width: 200px;
+        height: 200px;
+        border: 1px solid #ccc;
+      }
+
+      .colorNumbers {
+        width: 200px;
+      }
+
+      .colorNumbers li {
+        margin-bottom: 1em;
+      }
+
+      .colorNumbers li {
+        margin-bottom: 1em;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .colorNumbers input {
+        width: 100px;
+      }
+    </style>
+  </head>
+
+  <body></body>
+</html>
